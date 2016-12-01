@@ -4,6 +4,7 @@ set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/CMakeModules")
 include(AppendCompilerFlags)
 
 ## Project information ##
+cmake_policy(SET CMP0048 OLD) # no more project version warnings
 project(libdivsufsort C)
 set(PROJECT_VENDOR "Yuta Mori")
 set(PROJECT_CONTACT "yuta.256@gmail.com")
