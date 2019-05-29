@@ -65,7 +65,7 @@ if(MSVC)
     foreach(var ${vars})
       string(REPLACE "/MD" "-MT" ${var} "${${var}}")
     endforeach(var)
-  endif(NOT BUILD_SHARED_LIBS)  
+  endif(NOT BUILD_SHARED_LIBS)
 elseif(BORLAND)
   append_c_compiler_flags("-w" "BCC" CMAKE_C_FLAGS)
   append_c_compiler_flags("-Oi;-Og;-Os;-Ov;-Ox" "BCC" CMAKE_C_FLAGS_RELEASE)
@@ -87,6 +87,12 @@ endif(MSVC)
 
 ## Add definitions ##
 add_definitions(-DHAVE_CONFIG_H=1 -D__STDC_LIMIT_MACROS -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS)
+
+if( CMAKE_COMPILER_IS_GNUCXX )
+  append_cxx_compiler_flags("-fPIC" "GCC" CMAKE_CXX_FLAGS)
+else()
+  append_cxx_compiler_flags("-fPIC" "CLANG" CMAKE_CXX_FLAGS)
+endif()
 
 ## Add subdirectories ##
 add_subdirectory(pkgconfig)
